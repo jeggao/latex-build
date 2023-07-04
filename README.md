@@ -16,3 +16,5 @@ options:
 - `texlive`
   - `latexmk` (by-default included in `texlive`)
 - `aspell`
+
+> As of now, this script only supports linux. Raise an issue if further support is desired.
