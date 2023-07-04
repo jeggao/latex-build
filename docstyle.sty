@@ -1,0 +1,25 @@
+\ProvidesPackage{docstyle}
+
+% Geometry
+\usepackage[margin=1in,paper=a4paper]{geometry}
+
+% Typography Packages
+\usepackage{microtype}
+\usepackage{tgpagella}
+\usepackage[T1]{fontenc}
+
+% Image Packages
+\usepackage{graphicx}
+
+% Hyperref
+\usepackage[pdfusetitle]{hyperref}
+\hypersetup{%
+	hidelinks,
+	linktoc=all,
+	breaklinks=true,
+	pdfpagemode=UseOutlines
+}
+\hypersetup{%
+	pdfsubject={\subject},
+	pdfkeywords={\keywords},
+}
