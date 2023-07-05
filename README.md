@@ -1,6 +1,8 @@
 # $\LaTeX$ Build
 __A simple python script and folder structure for standard `latexmk` compilation.__
 
+Create copies of `project-name` for each $\LaTeX`project. Initialize git repos if needed.
+
 ```
 usage: ./build.py [-h] [-l] [-d] [-s] [-v]
 
