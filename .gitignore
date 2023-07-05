@@ -1,4 +1,4 @@
-tmp/*
+project-name/tmp/*
 *.bak
 *.log
 *.pdf
