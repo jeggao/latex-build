@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import subprocess
 import argparse
-import sys
 
 TEX_NAME = "main.tex"
 AUX_DIR = "./tmp"
