@@ -19,4 +19,4 @@ options:
   - `latexmk` (by-default included in `texlive`)
 - `aspell`
 
-> As of now, this script only supports linux. Raise an issue if further support is desired.
+> As of now, this script only formally supports linux. It is directly usable of Windows with an installation of `texlive`, but nothing is tested. Raise an issue if further support is desired.
