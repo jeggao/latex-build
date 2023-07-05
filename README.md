@@ -15,7 +15,7 @@ options:
 ```
 
 ## Prerequisites
-- [$\TeX$ Live](https://tug.org/texlive/)
+- [TeX Live](https://tug.org/texlive/)
   - `latexmk` (by-default included in $\TeX$ Live)
 - `aspell`
 
