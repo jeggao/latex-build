@@ -1,7 +1,7 @@
 # $\LaTeX$ Build
 __A simple python script and folder structure for standard `latexmk` compilation.__
 
-Create copies of `project-name` for each $\LaTeX`project. Initialize git repos if needed.
+Create copies of `project-name` for each $\LaTeX$ project. Initialize git repos if needed.
 
 ```
 usage: ./build.py [-h] [-l] [-d] [-s] [-v]
@@ -15,8 +15,8 @@ options:
 ```
 
 ## Prerequisites
-- `texlive`
-  - `latexmk` (by-default included in `texlive`)
+- [$\TeX$ Live](https://tug.org/texlive/)
+  - `latexmk` (by-default included in $\TeX$ Live)
 - `aspell`
 
-> As of now, this script only formally supports linux. It is directly usable of Windows with an installation of `texlive`, but nothing is tested. Raise an issue if further support is desired.
+> As of now, this script only formally supports linux. It is directly usable of Windows with an installation of $\TeX$ Live, but nothing is tested. Raise an issue if further support is desired.
