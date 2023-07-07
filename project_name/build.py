@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import subprocess
+from subprocess import run
 import argparse
 
 TEX_NAME = "main.tex"
@@ -30,9 +30,10 @@ def build(live=False, draft=False, verbose=False):
     ]
 
     if verbose:
+        run(["ls", "-l"])
         print(command)
 
-    subprocess.run(command)
+    run(command)
 
 
 def main():
@@ -60,7 +61,7 @@ def main():
         print(args)
 
     if spell:
-        subprocess.run(["aspell", "--mode=tex", "check", TEX_NAME])
+        run(["aspell", "--mode=tex", "check", TEX_NAME])
 
     build(live, draft, verbose)
 
