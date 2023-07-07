@@ -1,4 +1,10 @@
 project-name/tmp/*
+*.pyc
+
 *.bak
 *.log
 *.pdf
+*.aux
+*.fls
+*.fdb_latexmk
+*.out
