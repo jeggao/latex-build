@@ -4,12 +4,12 @@ from subprocess import run
 import argparse
 import logging
 
-TEX_NAME = "main.tex"
-AUX_DIR = "./tmp"
-OUT_DIR = "./"
-OUT_NAME = "main"
+TEX_NAME = "main.tex"  # Name of main .tex file
+AUX_DIR = "./tmp"  # Directory used for compilation
+OUT_DIR = "./"  # Final PDF output directory
+OUT_NAME = "main"  # Final PDF name, without .pdf
 
-LATEX = "pdflatex"
+LATEX = "pdflatex"  # LaTeX compiler
 
 
 def build(live=False, draft=False, verbose=False):
@@ -59,6 +59,11 @@ def main():
     else:
         logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.WARNING)
 
+    logging.debug("TEX_NAME: " + TEX_NAME)
+    logging.debug("AUX_DIR: " + AUX_DIR)
+    logging.debug("OUT_DIR: " + OUT_DIR)
+    logging.debug("OUT_NAME: " + OUT_NAME)
+    logging.debug("LATEX: " + LATEX)
     logging.debug("Arguments: " + str(args))
 
     if spell:
