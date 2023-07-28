@@ -38,7 +38,7 @@ def build(live=False, draft=False, verbose=False):
 
 
 def main():
-    parser = argparse.ArgumentParser("build.py")
+    parser = argparse.ArgumentParser("./build")
     parser.add_argument(
         "-l", "--live", dest="live", action="store_true", help="specify build type"
     )
