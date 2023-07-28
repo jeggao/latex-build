@@ -1,6 +1,8 @@
 #!/usr/bin/python
 from subprocess import run
 import argparse
+import logging
+from os import listdir
 
 TEX_NAME = "main.tex"
 AUX_DIR = "./tmp"
@@ -29,9 +31,8 @@ def build(live=False, draft=False, verbose=False):
         TEX_NAME,
     ]
 
-    if verbose:
-        run(["ls", "-l"])
-        print(command)
+    logging.debug("Working directory: " + str(listdir()))
+    logging.debug("Latexmk command: " + str(command))
 
     run(command)
 
@@ -51,11 +52,14 @@ def main():
         "-v", "--verbose", dest="verbose", action="store_true", help="make verbose"
     )
     args = parser.parse_args()
-
     live, draft, spell, verbose = args.live, args.draft, args.spell, args.verbose
 
     if verbose:
-        print(args)
+        logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
+    else:
+        logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.WARNING)
+
+    logging.debug("Arguments: " + str(args))
 
     if spell:
         run(["aspell", "--mode=tex", "check", TEX_NAME])
