@@ -52,10 +52,7 @@ def main():
     )
     args = parser.parse_args()
 
-    live = args.live
-    draft = args.draft
-    verbose = args.verbose
-    spell = args.spell
+    live, draft, spell, verbose = args.live, args.draft, args.spell, args.verbose
 
     if verbose:
         print(args)
