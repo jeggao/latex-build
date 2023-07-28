@@ -4,7 +4,7 @@ __A simple python script and folder structure for standard `latexmk` compilation
 Create copies of `project_name` for each $\LaTeX$ project. Initialize git repos for each if needed.
 
 ```
-usage: ./build.py [-h] [-l] [-d] [-s] [-v]
+usage: ./build [-h] [-l] [-d] [-s] [-v]
 
 options:
   -h, --help         show this help message and exit
@@ -19,4 +19,4 @@ options:
   - `latexmk` (by-default included in $\TeX$ Live)
 - `aspell`
 
-> As of now, this script only formally supports linux. It is directly usable of Windows with an installation of $\TeX$ Live, but nothing is tested. Raise an issue if further support is desired.
+> As of now, this script only formally supports linux. It is directly usable on Windows with an installation of $\TeX$ Live, but nothing is tested. Raise an issue if further support is desired.
