@@ -12,7 +12,10 @@ OUT_NAME = "main"  # Final PDF name, without .pdf
 LATEX = "pdflatex"  # LaTeX compiler
 
 
-def build(live=False, draft=False, verbose=False):
+def build(live=False, draft=False, spell=False, verbose=False):
+    if spell:
+        run(["aspell", "--mode=tex", "check", TEX_NAME])
+
     command = ["latexmk"]
     if live:
         command.append("-pvc")
@@ -37,7 +40,7 @@ def build(live=False, draft=False, verbose=False):
     run(command)
 
 
-def main():
+def parse_arguments():
     parser = argparse.ArgumentParser("./build")
     parser.add_argument(
         "-l", "--live", dest="live", action="store_true", help="specify build type"
@@ -52,8 +55,11 @@ def main():
         "-v", "--verbose", dest="verbose", action="store_true", help="make verbose"
     )
     args = parser.parse_args()
-    live, draft, spell, verbose = args.live, args.draft, args.spell, args.verbose
+    return args.live, args.draft, args.spell, args.verbose
 
+
+def main():
+    live, draft, spell, verbose = parse_arguments()
     if verbose:
         logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
     else:
@@ -66,10 +72,7 @@ def main():
     logging.debug("LATEX: " + LATEX)
     logging.debug("Arguments: " + str(args))
 
-    if spell:
-        run(["aspell", "--mode=tex", "check", TEX_NAME])
-
-    build(live, draft, verbose)
+    build(live, draft, spell, verbose)
 
 
 if __name__ == "__main__":
