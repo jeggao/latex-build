@@ -14,13 +14,6 @@ class TestBuild(unittest.TestCase):
         """
         Test normal build.
         """
-        target.build(live=False, draft=False, verbose=False)
-        target.run(["rm", "-r", "tmp/"])
-
-    def test_verbose(self):
-        """
-        Test normal build.
-        """
         target.build(live=False, draft=False, verbose=True)
         target.run(["rm", "-r", "tmp/"])
 
@@ -28,7 +21,7 @@ class TestBuild(unittest.TestCase):
         """
         Test normal build.
         """
-        target.build(live=False, draft=True, verbose=False)
+        target.build(live=False, draft=True, verbose=True)
         target.run(["rm", "-r", "tmp/"])
 
 
