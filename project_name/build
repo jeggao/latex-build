@@ -1,8 +1,8 @@
 #!/usr/bin/python
+from os import listdir
 from subprocess import run
 import argparse
 import logging
-from os import listdir
 
 TEX_NAME = "main.tex"
 AUX_DIR = "./tmp"
