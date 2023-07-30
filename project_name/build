@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from os import listdir
 from subprocess import run
-import argparse
+from argparse import ArgumentParser
 import logging
 
 TEX_NAME = "main.tex"  # Name of main .tex file
@@ -12,19 +12,27 @@ OUT_NAME = "main"  # Final PDF name, without .pdf
 LATEX = "pdflatex"  # LaTeX compiler
 
 
+def pre_build():
+    logging.debug("BEGIN PRE-BUILD ACTIONS")
+
+
 def build(live=False, draft=False, spell=False, verbose=False):
+    logging.debug("BEGIN BUILD")
+
+    # Spell check
     if spell:
         run(["aspell", "--mode=tex", "check", TEX_NAME])
+        if live:
+            logging.warning("Live mode enabled: spell check will only run once.")
 
+    # Start making the command for latexmk
     command = ["latexmk"]
     if live:
         command.append("-pvc")
-
     if verbose:
         command.append("-verbose")
     else:
         command.append("-silent")
-
     command += [
         "-" + LATEX,
         "--output-directory=" + OUT_DIR,
@@ -40,8 +48,12 @@ def build(live=False, draft=False, spell=False, verbose=False):
     run(command)
 
 
+def post_build():
+    logging.debug("BEGIN POST-BUILD ACTIONS")
+
+
 def parse_arguments():
-    parser = argparse.ArgumentParser("./build")
+    parser = ArgumentParser("./build")
     parser.add_argument(
         "-l", "--live", dest="live", action="store_true", help="specify build type"
     )
@@ -72,7 +84,9 @@ def main():
     logging.debug("LATEX: " + LATEX)
     logging.debug("Arguments: " + str(args))
 
+    pre_build()
     build(live, draft, spell, verbose)
+    post_build()
 
 
 if __name__ == "__main__":
