@@ -20,6 +20,8 @@ def build(live=False, draft=False, spell=False, verbose=False):
     logging.debug("BEGIN BUILD")
     if spell:
         run(["aspell", "--mode=tex", "check", TEX_NAME])
+        if live:
+            logging.warning("Live mode enabled: spell check will only run once.")
 
     command = ["latexmk"]
     if live:
