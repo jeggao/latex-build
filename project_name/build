@@ -1,8 +1,7 @@
 #!/usr/bin/python
 from os import listdir
-from sys import exit
 from subprocess import run
-import argparse
+from argparse import ArgumentParser
 import logging
 
 TEX_NAME = "main.tex"  # Name of main .tex file
@@ -54,7 +53,7 @@ def post_build():
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser("./build")
+    parser = ArgumentParser("./build")
     parser.add_argument(
         "-l", "--live", dest="live", action="store_true", help="specify build type"
     )
