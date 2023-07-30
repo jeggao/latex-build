@@ -55,11 +55,11 @@ def parse_arguments():
         "-v", "--verbose", dest="verbose", action="store_true", help="make verbose"
     )
     args = parser.parse_args()
-    return args.live, args.draft, args.spell, args.verbose
+    return args.live, args.draft, args.spell, args.verbose, args
 
 
 def main():
-    live, draft, spell, verbose = parse_arguments()
+    live, draft, spell, verbose, args = parse_arguments()
     if verbose:
         logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
     else:
