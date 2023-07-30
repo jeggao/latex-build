@@ -12,7 +12,12 @@ OUT_NAME = "main"  # Final PDF name, without .pdf
 LATEX = "pdflatex"  # LaTeX compiler
 
 
+def pre_build():
+    logging.debug("BEGIN PRE-BUILD ACTIONS")
+
+
 def build(live=False, draft=False, spell=False, verbose=False):
+    logging.debug("BEGIN BUILD")
     if spell:
         run(["aspell", "--mode=tex", "check", TEX_NAME])
 
@@ -38,6 +43,10 @@ def build(live=False, draft=False, spell=False, verbose=False):
     logging.debug("Latexmk command: " + str(command))
 
     run(command)
+
+
+def post_build():
+    logging.debug("BEGIN POST-BUILD ACTIONS")
 
 
 def parse_arguments():
@@ -72,7 +81,9 @@ def main():
     logging.debug("LATEX: " + LATEX)
     logging.debug("Arguments: " + str(args))
 
+    pre_build()
     build(live, draft, spell, verbose)
+    post_build()
 
 
 if __name__ == "__main__":
