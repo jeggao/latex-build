@@ -17,14 +17,14 @@ class TestBuild(unittest.TestCase):
         """
         Test normal build.
         """
-        target.build(live=False, draft=False, verbose=True)
+        target.build(live=False, draft=False, spell=False, verbose=True)
         shutil.rmtree("tmp/", ignore_errors=True)
 
     def test_draft(self):
         """
         Test normal build.
         """
-        target.build(live=False, draft=True, verbose=True)
+        target.build(live=False, draft=True, spell=False, verbose=True)
         shutil.rmtree("tmp/", ignore_errors=True)
 
 
