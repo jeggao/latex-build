@@ -2,26 +2,20 @@
 from os import listdir
 from subprocess import run
 from argparse import ArgumentParser
+import tomllib
 import logging
-
-TEX_NAME = "main.tex"  # Name of main .tex file
-AUX_DIR = "./tmp"  # Directory used for compilation
-OUT_DIR = "./"  # Final PDF output directory
-OUT_NAME = "main"  # Final PDF name, without .pdf
-
-LATEX = "pdflatex"  # LaTeX compiler
 
 
 def pre_build():
     logging.debug("BEGIN PRE-BUILD ACTIONS")
 
 
-def build(live=False, draft=False, spell=False, verbose=False):
+def build(build_config, live=False, draft=False, spell=False, verbose=False):
     logging.debug("BEGIN BUILD")
 
     # Spell check
     if spell:
-        run(["aspell", "--mode=tex", "check", TEX_NAME])
+        run(["aspell", "--mode=tex", "check", build_config["build"]["TEX_NAME"]])
         if live:
             logging.warning("Live mode enabled: spell check will only run once.")
 
@@ -34,12 +28,12 @@ def build(live=False, draft=False, spell=False, verbose=False):
     else:
         command.append("-silent")
     command += [
-        "-" + LATEX,
-        "--output-directory=" + OUT_DIR,
-        "-aux-directory=" + AUX_DIR,
+        "-" + build_config["build"]["LATEX"],
+        "--output-directory=" + build_config["build"]["OUT_DIR"],
+        "-aux-directory=" + build_config["build"]["AUX_DIR"],
         "-halt-on-error",
         "-interaction=nonstopmode",
-        TEX_NAME,
+        build_config["build"]["TEX_NAME"],
     ]
 
     logging.debug("Working directory: " + str(listdir()))
@@ -67,25 +61,31 @@ def parse_arguments():
         "-v", "--verbose", dest="verbose", action="store_true", help="make verbose"
     )
     args = parser.parse_args()
-    return args.live, args.draft, args.spell, args.verbose, args
+
+    with open("build.toml", "rb") as f:
+        build_config = tomllib.load(f)
+
+    return args, build_config
 
 
 def main():
-    live, draft, spell, verbose, args = parse_arguments()
+    args, build_config = parse_arguments()
+    live, draft, spell, verbose = args.live, args.draft, args.spell, args.verbose
+
     if verbose:
         logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
     else:
         logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.WARNING)
 
-    logging.debug("TEX_NAME: " + TEX_NAME)
-    logging.debug("AUX_DIR: " + AUX_DIR)
-    logging.debug("OUT_DIR: " + OUT_DIR)
-    logging.debug("OUT_NAME: " + OUT_NAME)
-    logging.debug("LATEX: " + LATEX)
+    logging.debug("TEX_NAME: " + build_config["build"]["TEX_NAME"])
+    logging.debug("AUX_DIR: " + build_config["build"]["AUX_DIR"])
+    logging.debug("OUT_DIR: " + build_config["build"]["OUT_DIR"])
+    logging.debug("OUT_NAME: " + build_config["build"]["OUT_NAME"])
+    logging.debug("LATEX: " + build_config["build"]["LATEX"])
     logging.debug("Arguments: " + str(args))
 
     pre_build()
-    build(live, draft, spell, verbose)
+    build(build_config, live, draft, spell, verbose)
     post_build()
 
 
