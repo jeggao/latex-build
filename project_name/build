@@ -84,6 +84,10 @@ def main():
 
     if version.parse(script_version) > version.parse(build_config["latex-build"]["version"]):
         logging.warning("build.toml generated from old version of python script.")
+    elif version.parse(script_version) < version.parse(build_config["latex-build"]["version"]):
+        logging.critical("build.toml generated from future version of python script. Exiting now.")
+        return 1
+
     logging.debug("TEX_NAME: " + build_config["latexmk"]["TEX_NAME"])
     logging.debug("AUX_DIR: " + build_config["latexmk"]["AUX_DIR"])
     logging.debug("OUT_DIR: " + build_config["latexmk"]["OUT_DIR"])
