@@ -15,8 +15,15 @@ options:
 ```
 
 ## Prerequisites
+- Python 3
 - [TeX Live](https://tug.org/texlive/)
   - `latexmk` (by-default included in $\TeX$ Live)
 - `aspell`
+
+## Usage
+- With this latex-build, each $\LaTeX$ project is a folder. To make a new one, make a copy of `project_name` abd rename it.
+- Initialize a git repository in the folder.
+- Use `build.toml` to configure the project
+- Use `./build` (or `python ./build` on Windows) to build the project. Information about `./build` can be found with `./build -h`.
 
 > As of now, this script only formally supports linux. It is directly usable on Windows with an installation of $\TeX$ Live, but nothing is tested. Raise an issue if further support is desired.
