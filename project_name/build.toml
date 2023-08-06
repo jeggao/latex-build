@@ -1,0 +1,7 @@
+[build]
+LATEX = "pdflatex"  # LaTeX compiler
+
+TEX_NAME = "main.tex"  # Name of main .tex file
+AUX_DIR = "./tmp"  # Directory used for compilation
+OUT_DIR = "./"  # Final PDF output directory
+OUT_NAME = "main"  # Final PDF name, without .pdf
