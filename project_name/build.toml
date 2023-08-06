@@ -1,4 +1,7 @@
-[build]
+[latex-build]
+version = "v2.0"
+
+[latexmk]
 LATEX = "pdflatex"  # LaTeX compiler
 
 TEX_NAME = "main.tex"  # Name of main .tex file
