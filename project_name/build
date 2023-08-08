@@ -6,11 +6,11 @@ import tomllib
 from packaging import version
 import logging
 
-script_version = "v2.0"
+script_version = "v2.1"
 
 
 def pre_build():
-    logging.debug("BEGIN PRE-BUILD ACTIONS")
+    logging.debug("Begin pre-build actions.")
 
 
 def build(build_config, live=False, draft=False, spell=False, verbose=False):
@@ -46,7 +46,7 @@ def build(build_config, live=False, draft=False, spell=False, verbose=False):
 
 
 def post_build():
-    logging.debug("BEGIN POST-BUILD ACTIONS")
+    logging.debug("Begin post-build actions.")
 
 
 def parse_arguments(toml_location="./build.toml"):
@@ -63,12 +63,23 @@ def parse_arguments(toml_location="./build.toml"):
     parser.add_argument(
         "-v", "--verbose", dest="verbose", action="store_true", help="make verbose"
     )
-    args = parser.parse_args()
+    parser.add_argument(
+        "--script",
+        dest="script",
+        action="store_true",
+        help="enable legacy options, disallow unknown arguments",
+    )
+    args = parser.parse_known_args()
+    if len(args) > 1:
+        if args[0].script:
+            logging.critical("Unknown arguments detected in script mode. Exiting now.")
+            exit(1)
+        logging.warning("Unknown arguments: " + str(args[1]))
 
     with open(toml_location, "rb") as f:
         build_config = tomllib.load(f)
 
-    return args, build_config
+    return args[0], build_config
 
 
 def main():
@@ -92,19 +103,21 @@ def main():
         logging.critical(
             "build.toml generated from future version of python script. Exiting now."
         )
-        return 1
+        exit(1)
 
-    logging.debug("TOML: " + str(build_config))
-    logging.debug("TEX_NAME: " + build_config["latexmk"]["TEX_NAME"])
-    logging.debug("AUX_DIR: " + build_config["latexmk"]["AUX_DIR"])
-    logging.debug("OUT_DIR: " + build_config["latexmk"]["OUT_DIR"])
-    logging.debug("OUT_NAME: " + build_config["latexmk"]["OUT_NAME"])
-    logging.debug("LATEX: " + build_config["latexmk"]["LATEX"])
+    logging.debug(".toml file: " + str(build_config))
+    logging.debug("Main .tex file: " + build_config["latexmk"]["TEX_NAME"])
+    logging.debug("Auxiliary directory: " + build_config["latexmk"]["AUX_DIR"])
+    logging.debug("Output directory: " + build_config["latexmk"]["OUT_DIR"])
+    logging.debug("PDF file name: " + build_config["latexmk"]["OUT_NAME"])
+    logging.debug("LaTeX compiler: " + build_config["latexmk"]["LATEX"])
     logging.debug("Arguments: " + str(args))
 
     pre_build()
     build(build_config, live, draft, spell, verbose)
     post_build()
+
+    exit(0)
 
 
 if __name__ == "__main__":
