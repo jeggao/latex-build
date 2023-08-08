@@ -88,11 +88,9 @@ def parse_arguments(toml_location="./build.toml"):
         help="enable legacy options, disallow unknown arguments",
     )
     args = parser.parse_known_args()
-    if len(args) > 1:
-        if args[0].script:
-            logging.critical("Unknown arguments detected in script mode. Exiting now.")
-            exit(1)
-        logging.warning("Unknown arguments: " + str(args[1]))
+    if len(args[1]) > 1 and args[0].script:
+        logging.critical("Unknown arguments detected in script mode. Exiting now.")
+        exit(1)
 
     with open(toml_location, "rb") as f:
         build_config = tomllib.load(f)
