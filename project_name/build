@@ -9,44 +9,62 @@ import logging
 script_version = "v2.2"
 
 
-def pre_build():
-    logging.debug("Begin pre-build actions.")
+class LaTeXBuilder:
+    def __init__(
+        self, build_config, live=False, draft=False, spell=False, verbose=False
+    ):
+        self.build_config = build_config
+        self.toml_version = self.build_config["latex-build"]["version"]
+        self.live = live
+        self.draft = draft
+        self.spell = spell
+        self.verbose = verbose
 
+    def pre_build(self):
+        logging.debug("Begin pre-build actions.")
 
-def build(build_config, live=False, draft=False, spell=False, verbose=False):
-    logging.debug("BEGIN BUILD")
+    def build(self):
+        self.pre_build()
+        logging.debug("BEGIN BUILD")
 
-    # Spell check
-    if spell:
-        run(["aspell", "--mode=tex", "check", build_config["latexmk"]["TEX_NAME"]])
-        if live:
-            logging.warning("Live mode enabled: spell check will only run once.")
+        # Spell check
+        if self.spell:
+            run(
+                [
+                    "aspell",
+                    "--mode=tex",
+                    "check",
+                    self.build_config["latexmk"]["TEX_NAME"],
+                ]
+            )
+            if self.live:
+                logging.warning("Live mode enabled: spell check will only run once.")
 
-    # Start making the command for latexmk
-    command = ["latexmk"]
-    if live:
-        command.append("-pvc")
-    if verbose:
-        command.append("-verbose")
-    else:
-        command.append("-silent")
-    command += [
-        "-" + build_config["latexmk"]["LATEX"],
-        "--output-directory=" + build_config["latexmk"]["OUT_DIR"],
-        "-aux-directory=" + build_config["latexmk"]["AUX_DIR"],
-        "-halt-on-error",
-        "-interaction=nonstopmode",
-        build_config["latexmk"]["TEX_NAME"],
-    ]
+        # Start making the command for latexmk
+        command = ["latexmk"]
+        if self.live:
+            command.append("-pvc")
+        if self.verbose:
+            command.append("-verbose")
+        else:
+            command.append("-silent")
+        command += [
+            "-" + self.build_config["latexmk"]["LATEX"],
+            "--output-directory=" + self.build_config["latexmk"]["OUT_DIR"],
+            "-aux-directory=" + self.build_config["latexmk"]["AUX_DIR"],
+            "-halt-on-error",
+            "-interaction=nonstopmode",
+            self.build_config["latexmk"]["TEX_NAME"],
+        ]
 
-    logging.debug("Working directory: " + str(listdir()))
-    logging.debug("Latexmk command: " + str(command))
+        logging.debug("Working directory: " + str(listdir()))
+        logging.debug("Latexmk command: " + str(command))
 
-    run(command)
+        run(command)
+        self.post_build()
 
-
-def post_build():
-    logging.debug("Begin post-build actions.")
+    def post_build(self):
+        logging.debug("Begin post-build actions.")
 
 
 def parse_arguments(toml_location="./build.toml"):
@@ -70,11 +88,9 @@ def parse_arguments(toml_location="./build.toml"):
         help="enable legacy options, disallow unknown arguments",
     )
     args = parser.parse_known_args()
-    if len(args) > 1:
-        if args[0].script:
-            logging.critical("Unknown arguments detected in script mode. Exiting now.")
-            exit(1)
-        logging.warning("Unknown arguments: " + str(args[1]))
+    if len(args[1]) > 1 and args[0].script:
+        logging.critical("Unknown arguments detected in script mode. Exiting now.")
+        exit(1)
 
     with open(toml_location, "rb") as f:
         build_config = tomllib.load(f)
@@ -113,10 +129,8 @@ def main():
     logging.debug("LaTeX compiler: " + build_config["latexmk"]["LATEX"])
     logging.debug("Arguments: " + str(args))
 
-    pre_build()
-    build(build_config, live, draft, spell, verbose)
-    post_build()
-
+    builder = LaTeXBuilder(build_config, live, draft, spell, verbose)
+    builder.build()
     exit(0)
 
 
