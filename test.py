@@ -23,7 +23,7 @@ class TestParse(unittest.TestCase):
         self.assertDictEqual(
             build_config,
             {
-                "latex-build": {"version": "v2.0"},
+                "latex-build": {"version": "v2.2"},
                 "latexmk": {
                     "LATEX": "pdflatex",
                     "TEX_NAME": "main.tex",
