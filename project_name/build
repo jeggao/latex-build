@@ -49,7 +49,7 @@ def post_build():
     logging.debug("BEGIN POST-BUILD ACTIONS")
 
 
-def parse_arguments():
+def parse_arguments(toml_location="./build.toml"):
     parser = ArgumentParser("./build")
     parser.add_argument(
         "-l", "--live", dest="live", action="store_true", help="specify build type"
@@ -65,7 +65,7 @@ def parse_arguments():
     )
     args = parser.parse_args()
 
-    with open("build.toml", "rb") as f:
+    with open(toml_location, "rb") as f:
         build_config = tomllib.load(f)
 
     return args, build_config
