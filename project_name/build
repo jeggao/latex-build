@@ -10,7 +10,7 @@ script_version = "v2.0"
 
 
 def pre_build():
-    logging.debug("BEGIN PRE-BUILD ACTIONS")
+    logging.debug("Begin pre-build actions.")
 
 
 def build(build_config, live=False, draft=False, spell=False, verbose=False):
@@ -46,7 +46,7 @@ def build(build_config, live=False, draft=False, spell=False, verbose=False):
 
 
 def post_build():
-    logging.debug("BEGIN POST-BUILD ACTIONS")
+    logging.debug("Begin post-build actions.")
 
 
 def parse_arguments(toml_location="./build.toml"):
@@ -94,12 +94,12 @@ def main():
         )
         return 1
 
-    logging.debug("TOML: " + str(build_config))
-    logging.debug("TEX_NAME: " + build_config["latexmk"]["TEX_NAME"])
-    logging.debug("AUX_DIR: " + build_config["latexmk"]["AUX_DIR"])
-    logging.debug("OUT_DIR: " + build_config["latexmk"]["OUT_DIR"])
-    logging.debug("OUT_NAME: " + build_config["latexmk"]["OUT_NAME"])
-    logging.debug("LATEX: " + build_config["latexmk"]["LATEX"])
+    logging.debug(".toml file: " + str(build_config))
+    logging.debug("Main .tex file: " + build_config["latexmk"]["TEX_NAME"])
+    logging.debug("Auxiliary directory: " + build_config["latexmk"]["AUX_DIR"])
+    logging.debug("Output directory: " + build_config["latexmk"]["OUT_DIR"])
+    logging.debug("PDF file name: " + build_config["latexmk"]["OUT_NAME"])
+    logging.debug("LaTeX compiler: " + build_config["latexmk"]["LATEX"])
     logging.debug("Arguments: " + str(args))
 
     pre_build()
