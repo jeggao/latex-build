@@ -26,4 +26,4 @@ options:
 - Use `build.toml` to configure the project
 - Use `./build` (or `python ./build` on Windows) to build the project. Information about `./build` can be found with `./build -h`.
 
-> As of now, this script only formally supports linux. It is directly usable on Windows with an installation of $\TeX$ Live, but nothing is tested. Raise an issue if further support is desired.
+> As of now, this script only formally supports Linux. It is directly usable on Windows with an installation of $\TeX$ Live, but nothing is tested. Raise an issue if further support is desired.
