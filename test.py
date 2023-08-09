@@ -11,6 +11,9 @@ target = imp.load_source("build", "project_name/build")
 
 class TestParse(unittest.TestCase):
     def test_toml(self):
+        @classmethod
+        def setUpClass(cls):
+            chdir("./project_name")
         """
         Test toml read.
         """
