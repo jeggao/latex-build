@@ -1,4 +1,6 @@
 # $\LaTeX$ Build
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/jeggao/latex-build/unit-tests.yml)
+
 __A simple python script and folder structure for standard `latexmk` compilation. Also used for integrating basic scripting (e.g. R plots) in documents.__
 
 Create copies of `project_name` for each $\LaTeX$ project. Initialize git repos for each if needed.
