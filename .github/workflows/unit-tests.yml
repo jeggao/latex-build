@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   test_unittests:
-    name: Test Unittests
+    name: Test Unit Tests
     runs-on: ubuntu-latest
 
     steps:
