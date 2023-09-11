@@ -41,17 +41,15 @@ jobs:
     uses: actions/checkout@v3
     runs-on: ubuntu-latest
     container: ghcr.io/xu-cheng/texlive-full:latest
-
+    steps:
     - name: Install dependencies
       run: |
         tlmgr update --self
         tlmgr update --all     
-
     - name: Build all
       run: |
         cd ./project_name
         latexmk -verbose -pdflatex --output-directory=./ -aux-directory=./tmp -halt-on-error -interaction=nonstopmode -jobname=main main.tex
-
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
