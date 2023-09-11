@@ -1,15 +1,13 @@
-\newcommand{\subject}[1]{\renewcommand{\subject}{#1}}
-\newcommand{\keywords}[1]{\renewcommand{\keywords}{#1}}
-
 \documentclass[a4paper]{article}
+\usepackage{docstyle}
 
 \title{Title}
 \author{Author}
 \date{\today}
-\subject{LaTeX}
-\keywords{PDF, DVI.}
-
-\usepackage{docstyle}
+\hypersetup{%
+	pdfsubject={LaTeX},
+	pdfkeywords={PDF, DVI},
+}
 
 \begin{document}
 	\maketitle
