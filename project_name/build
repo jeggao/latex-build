@@ -54,6 +54,7 @@ class LaTeXBuilder:
             "-aux-directory=" + self.build_config["latexmk"]["AUX_DIR"],
             "-halt-on-error",
             "-interaction=nonstopmode",
+            "-jobname=" + self.build_config["latexmk"]["OUT_NAME"],
             self.build_config["latexmk"]["TEX_NAME"],
         ]
 
