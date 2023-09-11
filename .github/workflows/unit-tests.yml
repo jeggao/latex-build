@@ -57,6 +57,7 @@ jobs:
 
         - name: Build all
           run: |
+            cd ./project_name
             ./build -v
 
         - name: Upload artifacts
