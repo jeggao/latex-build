@@ -3,7 +3,10 @@
 
 name: Python application
 
-on: [pull_request]
+on:
+  [pull_request]
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -55,4 +58,4 @@ jobs:
       with:
         name: result
         path: |
-          *.pdf
+          project_name/*.pdf
