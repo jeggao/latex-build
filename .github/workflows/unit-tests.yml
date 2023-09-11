@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
+        pip install packaging
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint with flake8
@@ -49,6 +49,17 @@ jobs:
             tlmgr update --all
             apk add make
             apk add git
+
+        - name: Set up Python 3.11
+          uses: actions/setup-python@v3
+          with:
+            python-version: "3.11"
+
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install flake8 pytest
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
         - name: Checkout the repository
           uses: actions/checkout@v3
