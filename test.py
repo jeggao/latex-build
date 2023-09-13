@@ -14,6 +14,7 @@ class TestParse(unittest.TestCase):
         @classmethod
         def setUpClass(cls):
             chdir("./project_name")
+
         def test_toml(self):
             """
             Test toml read.
@@ -23,7 +24,7 @@ class TestParse(unittest.TestCase):
             self.assertFalse(args.draft)
             self.assertFalse(args.spell)
             self.assertFalse(args.verbose)
-    
+
             self.assertDictEqual(
                 build_config,
                 {
