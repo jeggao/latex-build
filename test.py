@@ -1,12 +1,11 @@
 import unittest
-from os import chdir
+from os import chdir, path
 from time import perf_counter
 import logging
 import shutil
+from importlib.machinery import SourceFileLoader
 
-import imp
-
-target = imp.load_source("build", "project_name/build")
+target = SourceFileLoader("build", path.abspath(r"./project_name/build")).load_module()
 
 
 class TestParse(unittest.TestCase):
