@@ -23,7 +23,7 @@ options:
 - `aspell`
 
 ## Usage
-- With this latex-build, each $\LaTeX$ project is a folder. To make a new one, make a copy of `project_name` abd rename it.
+- With this latex-build, each $\LaTeX$ project is a folder. To make a new one, make a copy of `project_name` and rename it.
 - Initialize a git repository in the folder.
 - Use `build.toml` to configure the project
 - Use `./build` (or `python ./build` on Windows) to build the project. Information about `./build` can be found with `./build -h`.
