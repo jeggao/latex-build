@@ -1,0 +1,17 @@
+[formatter.mdformat]
+command = "mdformat"
+excludes = []
+includes = ["*.md"]
+options = []
+
+[formatter.black]
+command = "black"
+excludes = []
+includes = ["*.py", "*.pyi"]
+options = []
+
+[formatter.typos]
+command = "typos"
+excludes = []
+includes = ["*"]
+options = ["--write-changes"]

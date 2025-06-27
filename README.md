@@ -1,4 +1,5 @@
 # $\LaTeX$ Build
+
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/jeggao/latex-build/unit-tests.yml)
 
 __A simple python script and folder structure for standard `latexmk` compilation. Also used for integrating basic scripting (e.g. R plots) in documents.__
@@ -17,12 +18,14 @@ options:
 ```
 
 ## Prerequisites
+
 - Python 3
-- [TeX Live](https://tug.org/texlive/)
+- [$\TeX$ Live](https://tug.org/texlive/)
   - `latexmk` (by-default included in $\TeX$ Live)
 - `aspell`
 
 ## Usage
+
 - With this latex-build, each $\LaTeX$ project is a folder. To make a new one, make a copy of `project_name` and rename it.
 - Initialize a git repository in the folder.
 - Use `build.toml` to configure the project

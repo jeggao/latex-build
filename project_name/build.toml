@@ -1,5 +1,5 @@
 [latex-build]
-version = "v3.0"
+version = "v3.1"
 
 [latexmk]
 LATEX = "pdflatex"  # LaTeX compiler
