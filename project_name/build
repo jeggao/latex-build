@@ -1,9 +1,9 @@
 #!/usr/bin/python
-from os import listdir
-from subprocess import run
-from argparse import ArgumentParser
+import os
+import subprocess
+import argparse
 import tomllib
-from packaging import version
+import packaging.version
 import logging
 
 script_version = "v3.0"
@@ -14,7 +14,7 @@ class LaTeXBuilder:
         self, build_config, live=False, draft=False, spell=False, verbose=False
     ):
         self.build_config = build_config
-        self.toml_version = self.build_config["latex-build"]["version"]
+        self.config_version = self.build_config["latex-build"]["version"]
         self.live = live
         self.draft = draft
         self.spell = spell
@@ -29,7 +29,7 @@ class LaTeXBuilder:
 
         # Spell check
         if self.spell:
-            run(
+            subprocess.run(
                 [
                     "aspell",
                     "--mode=tex",
@@ -58,10 +58,10 @@ class LaTeXBuilder:
             self.build_config["latexmk"]["TEX_NAME"],
         ]
 
-        logging.debug("Working directory: " + str(listdir()))
+        logging.debug("Working directory: " + str(os.listdir()))
         logging.debug("Latexmk command: " + str(command))
 
-        run(command)
+        subprocess.run(command)
         self.post_build()
 
     def post_build(self):
@@ -69,7 +69,7 @@ class LaTeXBuilder:
 
 
 def parse_arguments(toml_location="./build.toml"):
-    parser = ArgumentParser("./build")
+    parser = argparse.ArgumentParser("./build")
     parser.add_argument(
         "-l", "--live", dest="live", action="store_true", help="specify build type"
     )
@@ -110,11 +110,11 @@ def main():
 
     logging.debug("build.toml version: " + build_config["latex-build"]["version"])
 
-    if version.parse(script_version) > version.parse(
+    if packaging.version.parse(script_version) > packaging.version.parse(
         build_config["latex-build"]["version"]
     ):
         logging.warning("build.toml generated from old version of python script.")
-    elif version.parse(script_version) < version.parse(
+    elif packaging.version.parse(script_version) < packaging.version.parse(
         build_config["latex-build"]["version"]
     ):
         logging.critical(
