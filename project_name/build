@@ -6,7 +6,7 @@ import tomllib
 import packaging.version
 import logging
 
-script_version = "v3.0"
+script_version = "v3.1"
 
 
 class LaTeXBuilder:
